@@ -9,7 +9,7 @@ const authrouter = express.Router()
 
 //FILE STORAGE QUERY START........................
 const storage = multer.diskStorage({
-  destination: './upload/images',
+  destination: './public/assets/images',
   
   filename: (req, file, cb) => {
       cb(null, new Date().toISOString().replace(/:/g, '-') + '-' + file.originalname);
@@ -31,7 +31,7 @@ const filefilter = (req, file, cb) => {
 const upload= multer({storage:storage, fileFilter:filefilter})
 //post method..................
 
-authrouter.use('/all', express.static('upload/images'));
+authrouter.use('/public/assets/images', express.static('public/assets/images'));
 authrouter.post("/post",upload.single('Photo'), async (req, res) => {
   try{
     const file = new Auth({
